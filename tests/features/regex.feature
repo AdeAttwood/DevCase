@@ -17,3 +17,9 @@ Feature: Regex search and replace
     And Replace is 'Hello ${1}s'
     And Input is 'Hello world'
     Then Output is 'Hello worlds'
+
+  Scenario: You can search with an invalid regular expression
+    Given Search is '(\w+'
+    And Replace is 'new'
+    And Input is 'this is a'
+    Then Output is 'this is a' 
