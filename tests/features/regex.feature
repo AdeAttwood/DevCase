@@ -3,7 +3,7 @@ Feature: Regex search and replace
   Scenario: You can search and replace with with a regular expression
     Given Search is '(\w+)'
     And Replace is 'new'
-    And Input is 'This is a'
+    And Input is 'this is a'
     Then Output is 'new new new'
 
   Scenario: You can use a '$' to replace a match group
