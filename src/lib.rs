@@ -1,9 +1,23 @@
 use regex::Regex;
 
+fn concert_replacement(original: &str, replacement: &str) -> String {
+    if cruet::is_camel_case(original) {
+        cruet::to_camel_case(replacement)
+    } else if cruet::is_kebab_case(original) {
+        cruet::to_kebab_case(replacement)
+    } else if cruet::is_pascal_case(original) {
+        cruet::to_pascal_case(replacement)
+    } else if cruet::is_snake_case(original) {
+        cruet::to_snake_case(replacement)
+    } else {
+        replacement.to_string()
+    }
+}
+
 pub fn replace(search: &String, replace: String, input: String) -> String {
     let mut index = 0;
     let mut output = input;
-    let search_pattern = Regex::new(search).unwrap();
+    let search_pattern = Regex::new(&format!("(?i){search}")).unwrap();
 
     while let Some(search_match) = search_pattern.find_at(&output, index) {
         let start = search_match.start();
@@ -19,8 +33,10 @@ pub fn replace(search: &String, replace: String, input: String) -> String {
             }
         };
 
-        index = start + replacement.len();
-        output.replace_range(start..end, &replacement);
+        let converted_replacement = concert_replacement(&output[start..end], &replacement);
+        output.replace_range(start..end, &converted_replacement);
+
+        index = start + converted_replacement.len();
     }
 
     output
