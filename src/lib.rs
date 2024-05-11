@@ -17,7 +17,10 @@ fn concert_replacement(original: &str, replacement: &str) -> String {
 pub fn replace(search: &String, replace: String, input: String) -> String {
     let mut index = 0;
     let mut output = input;
-    let search_pattern = Regex::new(&format!("(?i){search}")).unwrap();
+    let search_pattern = match Regex::new(&format!("(?i){search}")) {
+        Ok(pattern) => pattern,
+        Err(_) => return output
+    };
 
     while let Some(search_match) = search_pattern.find_at(&output, index) {
         let start = search_match.start();
