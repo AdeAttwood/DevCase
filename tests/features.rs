@@ -24,5 +24,5 @@ fn assert_output(world: &mut TestWorld, expected: String) {
 }
 
 fn main() {
-    futures::executor::block_on(TestWorld::run("tests/features/basic.feature"));
+    futures::executor::block_on(TestWorld::run("tests/features"));
 }
