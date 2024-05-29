@@ -22,4 +22,16 @@ Feature: Regex search and replace
     Given Search is '(\w+'
     And Replace is 'new'
     And Input is 'this is a'
-    Then Output is 'this is a' 
+    Then Output is 'this is a'
+
+  Scenario: You can replace a pattern with a dot in it like a css class name
+    Given Search is '.testing'
+    And Replace is '.another'
+    And Input is '.testing {'
+    Then Output is '.another {'
+
+  Scenario: You can replace a pattern that grabs all the text
+    Given Search is '.*'
+    And Replace is '.another'
+    And Input is '.testing {'
+    Then Output is '.another'
