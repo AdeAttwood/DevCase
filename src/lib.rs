@@ -26,6 +26,12 @@ pub fn replace(search: &String, replace: String, input: String) -> String {
         let start = search_match.start();
         let end = search_match.end();
 
+        // Prevent an infinite loop. If we hit this condition we will keep adding a new replacement
+        // to the end.
+        if start == end {
+            break;
+        }
+
         let mut replacement = String::new();
         match search_pattern.captures(&output[start..end]) {
             Some(captures) => {
